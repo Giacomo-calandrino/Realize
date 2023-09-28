@@ -13,7 +13,7 @@
  * * Prefisso della tabella
  * * ABSPATH
  *
- * * @link https://wordpress.org/support/article/editing-wp-config-php/
+ * * @link https://wordpress.org/documentation/article/editing-wp-config-php/
  *
  * @package WordPress
  */
@@ -77,7 +77,7 @@ $table_prefix = 'wp_';
  * Per informazioni sulle altre costanti che possono essere utilizzate per il debug,
  * leggi la documentazione
  *
- * @link https://wordpress.org/support/article/debugging-in-wordpress/
+ * @link https://wordpress.org/documentation/article/debugging-in-wordpress/
  */
 define( 'WP_DEBUG', false );
 

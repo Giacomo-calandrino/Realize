@@ -69,7 +69,8 @@ class WPSEO_Taxonomy {
 			return;
 		}
 
-		$this->insert_description_field_editor();
+		// Adds custom category description editor. Needs a hook that runs before the description field.
+		add_action( "{$this->taxonomy}_term_edit_form_top", [ $this, 'custom_category_description_editor' ] );
 
 		add_action( sanitize_text_field( $this->taxonomy ) . '_edit_form', [ $this, 'term_metabox' ], 90, 1 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
@@ -143,6 +144,7 @@ class WPSEO_Taxonomy {
 
 			$asset_manager->enqueue_style( 'metabox-css' );
 			$asset_manager->enqueue_style( 'scoring' );
+			$asset_manager->enqueue_style( 'tailwind' );
 			$asset_manager->enqueue_script( 'term-edit' );
 
 			/**
@@ -179,6 +181,7 @@ class WPSEO_Taxonomy {
 				'isTerm'            => true,
 				'postId'            => $tag_id,
 				'usedKeywordsNonce' => \wp_create_nonce( 'wpseo-keyword-usage' ),
+				'linkParams'        => WPSEO_Shortlinker::get_query_params(),
 			];
 			$asset_manager->localize_script( 'term-edit', 'wpseoScriptData', $script_data );
 			$asset_manager->enqueue_user_language_script();
@@ -443,21 +446,5 @@ class WPSEO_Taxonomy {
 		$page_type = $recommended_replace_vars->determine_for_term( $taxonomy );
 
 		return $recommended_replace_vars->get_recommended_replacevars_for( $page_type );
-	}
-
-	/**
-	 * Adds custom category description editor.
-	 * Needs a hook that runs before the description field. Prior to WP version 4.5 we need to use edit_form as
-	 * term_edit_form_top was introduced in WP 4.5. This can be removed after <4.5 is no longer supported.
-	 *
-	 * @return void
-	 */
-	private function insert_description_field_editor() {
-		if ( version_compare( $GLOBALS['wp_version'], '4.5', '<' ) ) {
-			add_action( "{$this->taxonomy}_edit_form", [ $this, 'custom_category_description_editor' ] );
-			return;
-		}
-
-		add_action( "{$this->taxonomy}_term_edit_form_top", [ $this, 'custom_category_description_editor' ] );
 	}
 }

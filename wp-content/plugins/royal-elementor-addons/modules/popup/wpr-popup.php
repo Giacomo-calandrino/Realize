@@ -48,7 +48,7 @@ class Wpr_Popup extends Elementor\Core\Base\Document {
 					'pro-dt' => esc_html__( 'After Specific Date (Pro)', 'wpr-addons' ),
 					'pro-ia'  => esc_html__( 'After User Inactivity (Pro)', 'wpr-addons' ),
 					'pro-ex' => esc_html__( 'After User Exit Intent (Pro)', 'wpr-addons' ),
-					'pro-cs' => esc_html__( 'Custom Trigger (Selector) (Pro)', 'wpr-addons' ),
+					'pro-cs' => esc_html__( 'Custom Trigger (Button Click or Selector) (Pro)', 'wpr-addons' ),
 				],
 			]
 		);	
@@ -143,6 +143,9 @@ class Wpr_Popup extends Elementor\Core\Base\Document {
 			[
 				'label' => esc_html__( 'Element Selector', 'wpr-addons' ),
 				'type' => Controls_Manager::TEXT,
+				'dynamic' => [
+					'active' => true,
+				],
 				'default' => '',
 				'condition' => [
 					'popup_trigger' => 'element-scroll',
@@ -169,6 +172,9 @@ class Wpr_Popup extends Elementor\Core\Base\Document {
 			[
 				'label' => esc_html__( 'Element Selector', 'wpr-addons' ),
 				'type' => Controls_Manager::TEXT,
+				'dynamic' => [
+					'active' => true,
+				],
 				'default' => '',
 				'condition' => [
 					'popup_trigger' => 'custom',
